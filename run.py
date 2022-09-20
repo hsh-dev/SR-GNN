@@ -1,5 +1,4 @@
 
-from cgitb import lookup
 from DataModule.LookupManager import LookupManager
 from DataModule.DataLoader import DataLoader
 from DataModule.GraphManager import GraphManager
@@ -7,7 +6,6 @@ from DataModule.GraphManager import GraphManager
 from TrainModule.TrainManager import TrainManager
 from config import config
 
-from Models.Feature.GAT_Model import GAT
 from Models.GNNManager import GNNManager
 
 import tensorflow as tf

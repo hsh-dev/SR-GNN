@@ -2,7 +2,7 @@ from threading import local
 import tensorflow as tf
 from keras import Model, Sequential
 from DataModule.LookupManager import LookupManager
-from keras.layers import Dense
+from keras.layers import Dense, Softmax
 
 class SRGNN(Model):
     def __init__(
@@ -28,6 +28,7 @@ class SRGNN(Model):
         
         self.hybrid_layer = Dense(d_dim)
         
+        self.softmax = Softmax()
         
     def call(self, x_input, item_emb):
         '''
@@ -63,6 +64,6 @@ class SRGNN(Model):
         
         ''' Recommend Items '''
         output = tf.matmul(session_hybrid, item_emb, transpose_b = True)
-        # output = tf.nn.softmax(rec_items, axis = 1)
+        output = self.softmax(output)
                 
         return output
