@@ -1,0 +1,8 @@
+.DS_Store
+*.jpg
+*.png
+*.pyc
+
+.vscode
+
+log/
