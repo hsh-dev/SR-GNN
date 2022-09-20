@@ -173,7 +173,7 @@ class TrainManager():
         one_hot = tf.one_hot(y, dim)
         return one_hot
 
-    # @tf.function
+    @tf.function
     def propagate_with_graph(self, x, y, phase):            
         x_idx = self.lookup.str_to_idx(x)    
         y_idx = self.lookup.str_to_idx(y)
@@ -199,9 +199,6 @@ class TrainManager():
             
         gradients = tape.gradient(loss, self.model.trainable_variables)
 
-        for grad in gradients:
-            print(grad)
-            exit()
         if phase == "train":
                 self.optimizer_wrap.optimizer.apply_gradients(
                     zip(gradients, self.model.trainable_variables))
