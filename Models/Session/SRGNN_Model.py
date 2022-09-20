@@ -62,7 +62,7 @@ class SRGNN(Model):
         session_hybrid = self.hybrid_layer(session_hybrid)
         
         ''' Recommend Items '''
-        rec_items = tf.matmul(session_hybrid, item_emb, transpose_b = True)
-        output = tf.nn.softmax(rec_items, axis = 1)
+        output = tf.matmul(session_hybrid, item_emb, transpose_b = True)
+        # output = tf.nn.softmax(rec_items, axis = 1)
                 
         return output

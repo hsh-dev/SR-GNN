@@ -22,23 +22,20 @@ class GNNManager(Model):
         self.edge = edge
 
     
-        # if feature_model == "GAT":
-        self.f_model = GAT(
-            i_dim = model_config['i_dim'],
-            n_dim = model_config['n_dim'],
-            d_dim = model_config['d_dim'],
-            lookup = lookup
-        )
+        if feature_model == "GAT":
+            self.f_model = GAT(
+                i_dim = model_config['i_dim'],
+                n_dim = model_config['n_dim'],
+                d_dim = model_config['d_dim'],
+                lookup = lookup
+            )
         
-        # if session_model == "SRGNN":
-        self.s_model = SRGNN(
-            b_size = model_config['b_dim'],
-            d_dim = model_config['d_dim'],
-            lookup = lookup
-        )
-    
-    def get_item_emb(self):
-        return self.f_model.get_emb_mat()
+        if session_model == "SRGNN":
+            self.s_model = SRGNN(
+                b_size = model_config['b_dim'],
+                d_dim = model_config['d_dim'],
+                lookup = lookup
+            )
     
     def call(self, x_input):
         '''

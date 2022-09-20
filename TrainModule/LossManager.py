@@ -1,6 +1,6 @@
 import tensorflow as tf
 import keras.backend as K
-
+from keras.losses import SparseCategoricalCrossentropy
 
 class LossManager():
     '''
@@ -14,7 +14,13 @@ class LossManager():
         err = cce(y_true, y_pred)
 
         return err
-
+    
+    def sparse_cross_entropy_loss(self, y_true, y_pred):
+        sce = SparseCategoricalCrossentropy()
+        loss =  sce(y_true, y_pred)
+        
+        return loss
+    
     def negative_log_with_mask(self, y_true, y_pred, mask):
         '''
         y_true : B x N

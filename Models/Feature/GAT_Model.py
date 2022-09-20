@@ -39,9 +39,9 @@ class GAT(Model):
         # Item Embedding Matrix
         initializer = tf.keras.initializers.GlorotNormal()
         self.item_emb_mat = tf.Variable(
-            initializer(shape=[i_dim + 1, d_dim]),
-            dtype=tf.float32,
-            trainable=True)
+            initializer(shape=[i_dim + 1, d_dim], dtype=tf.float32),
+            trainable=True
+        )
     
     # def get_emb_mat(self):
     #     return self.item_emb_mat

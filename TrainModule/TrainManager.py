@@ -195,7 +195,8 @@ class TrainManager():
             
             y_pred = self.model(x)
             loss = self.loss_manager.bpr_loss(y_true, y_pred, sequence_dims = False, mask = False)
-            # loss = self.loss_manager.negative_log_with_mask(y_true, y_pred, mask)
+
+            # loss = self.loss_manager.sparse_cross_entropy_loss(y_true, y_pred)
             
         gradients = tape.gradient(loss, self.model.trainable_variables)
 
