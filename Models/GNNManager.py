@@ -26,8 +26,7 @@ class GNNManager(Model):
             self.f_model = GAT(
                 i_dim = model_config['i_dim'],
                 n_dim = model_config['n_dim'],
-                d_dim = model_config['d_dim'],
-                lookup = lookup
+                d_dim = model_config['d_dim']
             )
         
         if session_model == "SRGNN":

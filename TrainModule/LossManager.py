@@ -20,7 +20,7 @@ class LossManager():
         loss =  sce(y_true, y_pred)
         
         return loss
-    
+        
     def negative_log_with_mask(self, y_true, y_pred, mask):
         '''
         y_true : B x N

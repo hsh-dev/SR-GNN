@@ -18,18 +18,16 @@ class SRGNN(Model):
         self.global_layer = Dense(d_dim)
         self.local_layer = Dense(d_dim)
         
-        initializer = tf.keras.initializers.GlorotNormal()
-        self.bias = tf.Variable(
-            initializer(shape=[b_size, 1, 1]),
-            dtype=tf.float32,
-            trainable=True)
+        # initializer = tf.keras.initializers.GlorotNormal()
+        # self.bias = tf.Variable(
+        #     initializer(shape=[b_size, 1, 1]),
+        #     dtype=tf.float32,
+        #     trainable=True)
         
         self.q = Dense(1)
         
         self.hybrid_layer = Dense(d_dim)
-        
-        self.softmax = Softmax()
-        
+                
     def call(self, x_input, item_emb):
         '''
         Args:
@@ -48,7 +46,8 @@ class SRGNN(Model):
                                 tf.constant([1, global_feature.shape[1], 1], tf.int32))
                 
         ''' Calculate soft attention '''
-        sum_feature = global_feature + local_feature_tile + self.bias
+        # sum_feature = global_feature + local_feature_tile + self.bias
+        sum_feature = global_feature + local_feature_tile
         sum_feature = tf.nn.sigmoid(sum_feature)
         attention_scores = self.q(sum_feature)
                 
@@ -64,6 +63,6 @@ class SRGNN(Model):
         
         ''' Recommend Items '''
         output = tf.matmul(session_hybrid, item_emb, transpose_b = True)
-        output = self.softmax(output)
+        # output = tf.nn.softmax(output)
                 
         return output
