@@ -1,9 +1,7 @@
-from tkinter import E
 import tensorflow as tf
 from keras import Model, Sequential
 from keras.layers import Dense, LeakyReLU
-from Models.Feature.Embedding_Model import EmbeddingModel
-from DataModule.LookupManager import LookupManager
+
 
 class AttentionHead(Model):
     def __init__(

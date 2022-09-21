@@ -85,9 +85,9 @@ class DataLoader():
     
     
     def slice_sequence(self, user_list):
-        sample_ratio = 40
-        # sequence_length = self.config["sequence_length"]
-        sequence_length = 5
+        sample_ratio = 10
+        sequence_length = self.config["sequence_length"]
+        # sequence_length = 5
 
         input_x = []
         input_y = []
@@ -103,11 +103,15 @@ class DataLoader():
                 if sample_count == 0:
                     sample_count = 1
 
-            start_pivots = random.sample(range(0, movie_length - sequence_length), sample_count)
+            last_pivots = random.sample(range(2, movie_length), sample_count)
             
-            for start_pivot in start_pivots:
-                sequence = movie_list[start_pivot : start_pivot + sequence_length]
-                label = movie_list[start_pivot + sequence_length]
+            for last_idx in last_pivots:
+                start_idx = last_idx - sequence_length + 1
+                if start_idx < 0: 
+                    sequence = [* (["pad"] * (-start_idx)), *movie_list[0 : last_idx]]
+                else:
+                    sequence = movie_list[start_idx : last_idx]
+                label = movie_list[last_idx]
 
                 input_x.append(sequence)
                 input_y.append(label)

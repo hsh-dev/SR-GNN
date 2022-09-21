@@ -18,12 +18,6 @@ class SRGNN(Model):
         self.global_layer = Dense(d_dim)
         self.local_layer = Dense(d_dim)
         
-        # initializer = tf.keras.initializers.GlorotNormal()
-        # self.bias = tf.Variable(
-        #     initializer(shape=[b_size, 1, 1]),
-        #     dtype=tf.float32,
-        #     trainable=True)
-        
         self.q = Dense(1)
         
         self.hybrid_layer = Dense(d_dim)
@@ -36,8 +30,13 @@ class SRGNN(Model):
             
             output : tensor with item recommendations (Batch, Items)
         '''        
+        
         ''' Get global feature and local feature '''
         seq_feature = tf.gather(params=item_emb, indices=x_input)
+        
+        mask = tf.greater(x_input, 0)
+        mask = tf.cast(mask, tf.float32)
+        seq_feature = mask[:,:,tf.newaxis] * seq_feature
         
         global_feature = self.global_layer(seq_feature)
         
